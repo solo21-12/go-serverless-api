@@ -7,11 +7,15 @@ import (
 
 func Handler(req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 	env := config.NewEnv()
+	dynamoClient := config.NewDynamoClient(env)
 
 	switch req.Path {
 	case "/user":
-		return NewUserRouter(env, req)
+		return NewUserRouter(env, req, dynamoClient)
 	}
 
-	return NewUserRouter(env, req)
+	return events.APIGatewayProxyResponse{
+		StatusCode: 405,
+		Body:       "Method not allowed",
+	}, nil
 }

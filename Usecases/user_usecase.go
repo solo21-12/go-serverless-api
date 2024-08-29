@@ -23,6 +23,10 @@ func (uc *userUseCase) GetUser(email string) (*models.User, *models.ErrorRespons
 	return uc.repository.FetchUserID(email)
 }
 
+func (uc *userUseCase) GetUsers() ([]models.User, *models.ErrorResponse) {
+	return uc.repository.Fetchusers()
+}
+
 func (uc *userUseCase) CreateUser(newUser models.CreateUser) (*models.User, *models.ErrorResponse) {
 	if user, err := uc.repository.FetchUserEmail(newUser.Email); err == nil && user != nil {
 		return nil, err
@@ -63,7 +67,6 @@ func (uc *userUseCase) UpdateUser(id string, updatedUser models.CreateUser) (*mo
 	return user, nil
 
 }
-
 func (uc *userUseCase) DeleteUser(id string) *models.ErrorResponse {
 
 	if _, err := uc.repository.FetchUserID(id); err != nil {

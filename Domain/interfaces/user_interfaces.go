@@ -14,6 +14,7 @@ type UserControllers interface {
 
 type UserUseCase interface {
 	GetUser(Id string) (*models.User, *models.ErrorResponse)
+	GetUsers() ([]models.User, *models.ErrorResponse)
 	CreateUser(newUser models.CreateUser) (*models.User, *models.ErrorResponse)
 	UpdateUser(id string, updatedUser models.CreateUser) (*models.User, *models.ErrorResponse)
 	DeleteUser(id string) *models.ErrorResponse
